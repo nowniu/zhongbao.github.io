@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SN - 修身、齐家</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 300;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 30px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #3498db;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-header {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            transition: all 0.3s ease;
+        }
+
+        .section-header:hover {
+            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toggle-icon {
+            font-size: 1.2em;
+            color: #6c757d;
+            transition: transform 0.3s ease;
+        }
+
+        .section.expanded .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .section-content {
+            padding: 0 25px 25px 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .section.expanded .section-content {
+            max-height: 2000px;
+            padding: 0 25px 25px 25px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #3498db, #e74c3c);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #3498db;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            background: #fff;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -37px;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            background: #3498db;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 3px #3498db;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content {
+            max-height: none;
+            overflow: visible;
+        }
+
+        .timeline-content h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            color: #856404;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+            border-radius: 15px;
+        }
+
+        .coffee-button {
+            display: inline-block;
+            margin: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .coffee-button:hover {
+            transform: scale(1.05);
+        }
+
+        .qr-code {
+            max-width: 200px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .expand-all-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .expand-all-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar"></div>
+    <button class="expand-all-btn" onclick="toggleAllSections()">展开全部</button>
+    
+    <div class="container fade-in">
+        <header>
+            <h1>SN - 修身、齐家</h1>
+        </header>
+
+        <main>
+            <!-- 打工之路 -->
+            <section class="section" data-section="work">
+                <div class="section-header" onclick="toggleSection('work')">
+                    <h2>💼 打工之路</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>产品经理</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 众包之路 -->
+            <section class="section" data-section="crowdsourcing">
+                <div class="section-header" onclick="toggleSection('crowdsourcing')">
+                    <h2>🚚 众包之路</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">
+                                2024年7月31日 - 跑单第五天
+                            </div>
+                            <div class="timeline-content">
+                                <h3>概况</h3>
+                                <p>1小时，跑了2单</p>
+                                <div class="stats-grid">
+                                    <div class="stat-card">
+                                        <div class="stat-label">收入</div>
+                                        <div class="stat-value">￥8.9</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-label">支出</div>
+                                        <div class="stat-value">￥3</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-label">余额</div>
+                                        <div class="stat-value">￥27.5</div>
+                                    </div>
+                                </div>
+                                <div class="note">
+                                    <strong>总结余：</strong>￥153.4（不含保证金￥100）
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-date">
+                                2024年7月30日 - 跑单第四天
+                            </div>
+                            <div class="timeline-content">
+                                <h3>概况</h3>
+                                <p>2.5小时，跑了7单</p>
+                                <div class="stats-grid">
+                                    <div class="stat-card">
+                                        <div class="stat-label">收入</div>
+                                        <div class="stat-value">￥33</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-label">支出</div>
+                                        <div class="stat-value">￥3</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-label">余额</div>
+                                        <div class="stat-value">￥171.6</div>
+                                    </div>
+                                </div>
+                                <div class="note">
+                                    <strong>总结余：</strong>￥146.1（不含保证金￥100）
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-date">
+                                2023年7月30日 - 跑单第三天
+                            </div>
+                            <div class="timeline-content">
+                                <h3>概况</h3>
+                                <p>2.5小时，跑了7单</p>
+                                <div class="note">
+                                    <strong>备注：</strong>送错一个单元，重新上下楼
+                                </div>
+                                <div class="stats-grid">
+                                    <div class="stat-card">
+                                        <div class="stat-label">收入</div>
+                                        <div class="stat-value">￥32.4</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-label">奖励收入</div>
+                                        <div class="stat-value">￥49</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-label">支出</div>
+                                        <div class="stat-value">￥3</div>
+                                    </div>
+                                </div>
+                                <div class="note">
+                                    <strong>总结余：</strong>￥116.1（不含保证金￥100）
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-date">
+                                2023年7月26日 - 跑单第二天
+                            </div>
+                            <div class="timeline-content">
+                                <h3>概况</h3>
+                                <p>3小时，跑了7单</p>
+                                <div class="note">
+                                    <strong>备注：</strong>客户地址选错了，重新配送到新地址
+                                </div>
+                                <div class="stats-grid">
+                                    <div class="stat-card">
+                                        <div class="stat-label">收入</div>
+                                        <div class="stat-value">￥38.6</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-label">支出</div>
+                                        <div class="stat-value">￥3</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-label">保证金</div>
+                                        <div class="stat-value">￥100</div>
+                                    </div>
+                                </div>
+                                <div class="note">
+                                    <strong>总结余：</strong>￥37.7（不含保证金￥100）
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-date">
+                                2023年7月23日 - 跑单第一天
+                            </div>
+                            <div class="timeline-content">
+                                <h3>概况</h3>
+                                <p>2.5小时，跑了6单</p>
+                                <div class="stats-grid">
+                                    <div class="stat-card">
+                                        <div class="stat-label">收入</div>
+                                        <div class="stat-value">￥27.6</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-label">总结余</div>
+                                        <div class="stat-value">￥2.1</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-date">
+                                2023年7月19日 - 购买美团T恤
+                            </div>
+                            <div class="timeline-content">
+                                <div class="stats-grid">
+                                    <div class="stat-card">
+                                        <div class="stat-label">支出</div>
+                                        <div class="stat-value">￥25.5</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-label">总结余</div>
+                                        <div class="stat-value">-￥25.5</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-date">
+                                2023年7月12日 - 注册美团众包
+                            </div>
+                            <div class="timeline-content">
+                                <p>开始众包之旅</p>
+                            </div>
+                        </div>
+                </div>
+            </section>
+
+            <!-- 电商之路 -->
+            <section class="section" data-section="ecommerce">
+                <div class="section-header" onclick="toggleSection('ecommerce')">
+                    <h2>🛒 电商之路</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">
+                                2010年5月6日
+                            </div>
+                            <div class="timeline-content">
+                                <h3>淘宝店产生第一个订单</h3>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">
+                                2010年2月9日
+                            </div>
+                            <div class="timeline-content">
+                                <h3>创建淘宝店</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 内容广告之路 -->
+            <section class="section" data-section="content">
+                <div class="section-header" onclick="toggleSection('content')">
+                    <h2>📱 内容广告之路</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>公众号</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 服务咨询之路 -->
+            <section class="section" data-section="consulting">
+                <div class="section-header" onclick="toggleSection('consulting')">
+                    <h2>💼 服务咨询之路</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>G</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 产品应用之路 -->
+            <section class="section" data-section="product">
+                <div class="section-header" onclick="toggleSection('product')">
+                    <h2>🚀 产品应用之路</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>G</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 投资之路 -->
+            <section class="section" data-section="investment">
+                <div class="section-header" onclick="toggleSection('investment')">
+                    <h2>💰 投资之路</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>G</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+  
+    <script>
+        // 展开/折叠section功能
+        function toggleSection(sectionId) {
+            const section = document.querySelector(`[data-section="${sectionId}"]`);
+            const isExpanded = section.classList.contains('expanded');
+            
+            if (isExpanded) {
+                section.classList.remove('expanded');
+            } else {
+                section.classList.add('expanded');
+            }
+            
+            updateProgressBar();
+        }
+        
+        
+        // 展开/折叠所有section
+        function toggleAllSections() {
+            const sections = document.querySelectorAll('.section');
+            const button = document.querySelector('.expand-all-btn');
+            const allExpanded = Array.from(sections).every(section => section.classList.contains('expanded'));
+            
+            sections.forEach(section => {
+                if (allExpanded) {
+                    section.classList.remove('expanded');
+                } else {
+                    section.classList.add('expanded');
+                }
+            });
+            
+            button.textContent = allExpanded ? '展开全部' : '折叠全部';
+            updateProgressBar();
+        }
+        
+        // 更新进度条
+        function updateProgressBar() {
+            const sections = document.querySelectorAll('.section');
+            const expandedSections = document.querySelectorAll('.section.expanded');
+            const progress = (expandedSections.length / sections.length) * 100;
+            
+            document.querySelector('.progress-bar').style.width = progress + '%';
+        }
+        
+        // 滚动监听
+        function updateProgressOnScroll() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            document.querySelector('.progress-bar').style.width = Math.max(scrollPercent, 0) + '%';
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 默认展开第一个section
+            const firstSection = document.querySelector('.section');
+            if (firstSection) {
+                firstSection.classList.add('expanded');
+            }
+            
+            // 添加滚动监听
+            window.addEventListener('scroll', updateProgressOnScroll);
+            
+            // 初始化进度条
+            updateProgressBar();
+            
+            // 添加键盘快捷键支持
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey || e.metaKey) {
+                    switch(e.key) {
+                        case 'a':
+                            e.preventDefault();
+                            toggleAllSections();
+                            break;
+                        case '1':
+                            e.preventDefault();
+                            toggleSection('work');
+                            break;
+                        case '2':
+                            e.preventDefault();
+                            toggleSection('crowdsourcing');
+                            break;
+                        case '3':
+                            e.preventDefault();
+                            toggleSection('ecommerce');
+                            break;
+                    }
+                }
+            });
+        });
+        
+        // 添加平滑滚动到顶部功能
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // 添加回到顶部按钮
+        const backToTopBtn = document.createElement('button');
+        backToTopBtn.innerHTML = '↑';
+        backToTopBtn.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(100px);
+        `;
+        
+        backToTopBtn.addEventListener('click', scrollToTop);
+        backToTopBtn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(0) scale(1.1)';
+        });
+        backToTopBtn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+        
+        document.body.appendChild(backToTopBtn);
+        
+        // 显示/隐藏回到顶部按钮
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.style.opacity = '1';
+                backToTopBtn.style.transform = 'translateY(0)';
+            } else {
+                backToTopBtn.style.opacity = '0';
+                backToTopBtn.style.transform = 'translateY(100px)';
+            }
+        });
+    </script>
+</body>
+</html>
