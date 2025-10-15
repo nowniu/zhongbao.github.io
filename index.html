@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,7 +40,7 @@
             --border: #1f2937;
             --shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
         }
-        
+
         body.morandi {
             /* Morandi muted palette */
             --bg: linear-gradient(135deg, #efefee 0%, #e7e3de 100%);
@@ -47,20 +48,27 @@
             --muted-text: #7a726d;
             --surface: rgba(255, 255, 255, 0.92);
             --surface-plain: #fbfaf8;
-            --primary: #b1b7c4; /* ash blue */
-            --primary-2: #c9b2a6; /* warm taupe */
-            --accent: #a8b8a2; /* sage */
-            --accent-2: #c89f9c; /* dusty rose */
+            --primary: #b1b7c4;
+            /* ash blue */
+            --primary-2: #c9b2a6;
+            /* warm taupe */
+            --accent: #a8b8a2;
+            /* sage */
+            --accent-2: #c89f9c;
+            /* dusty rose */
             --border: #e3ddd6;
             --shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
         }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -91,12 +99,15 @@
             top: 0;
             z-index: 1100;
             backdrop-filter: saturate(180%) blur(10px);
-            background: linear-gradient(135deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.55) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.55) 100%);
             border-bottom: 1px solid var(--border);
         }
-        body.dark .topbar, body.morandi .topbar {
-            background: linear-gradient(135deg, rgba(20,25,35,0.75) 0%, rgba(20,25,35,0.55) 100%);
+
+        body.dark .topbar,
+        body.morandi .topbar {
+            background: linear-gradient(135deg, rgba(20, 25, 35, 0.75) 0%, rgba(20, 25, 35, 0.55) 100%);
         }
+
         .topbar-inner {
             max-width: 900px;
             margin: 0 auto;
@@ -105,15 +116,18 @@
             justify-content: space-between;
             padding: 10px 20px;
         }
+
         .brand {
             font-weight: 700;
             letter-spacing: -0.02em;
         }
+
         .nav {
             display: flex;
             gap: 14px;
             flex-wrap: wrap;
         }
+
         .nav a {
             color: var(--text);
             text-decoration: none;
@@ -123,10 +137,14 @@
             border-radius: 8px;
             transition: background 0.2s ease, color 0.2s ease;
         }
+
         .nav a:hover {
-            background: rgba(0,0,0,0.06);
+            background: rgba(0, 0, 0, 0.06);
         }
-        body.dark .nav a:hover { background: rgba(255,255,255,0.08); }
+
+        body.dark .nav a:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
 
         h1 {
             text-align: center;
@@ -159,13 +177,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(135deg, rgba(248,249,250,0.8) 0%, rgba(233,236,239,0.8) 100%);
+            background: linear-gradient(135deg, rgba(248, 249, 250, 0.8) 0%, rgba(233, 236, 239, 0.8) 100%);
             transition: all 0.3s ease;
             backdrop-filter: blur(6px);
         }
 
         .section-header:hover {
-            background: linear-gradient(135deg, rgba(233,236,239,0.9) 0%, rgba(222,226,230,0.9) 100%);
+            background: linear-gradient(135deg, rgba(233, 236, 239, 0.9) 0%, rgba(222, 226, 230, 0.9) 100%);
         }
 
         .section h2 {
@@ -197,7 +215,7 @@
         }
 
         .section.expanded .section-content {
-            max-height: 2000px;
+            max-height: none; /* no hard cap; JS will animate to auto */
             padding: 0 25px 25px 25px;
         }
 
@@ -219,7 +237,7 @@
         .timeline-item {
             position: relative;
             margin-bottom: 25px;
-            background: rgba(248,249,250,0.75);
+            background: rgba(248, 249, 250, 0.75);
             padding: 20px;
             border-radius: 12px;
             border-left: 4px solid var(--accent);
@@ -336,15 +354,15 @@
                 margin: 10px;
                 padding: 15px;
             }
-            
+
             h1 {
                 font-size: 2em;
             }
-            
+
             .section {
                 padding: 20px;
             }
-            
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
@@ -356,47 +374,58 @@
                 padding-left: 0;
                 padding-right: 0;
             }
+
             .timeline::before {
                 left: 50%;
                 transform: translateX(-1px);
             }
+
             .timeline-item {
                 width: calc(50% - 40px);
                 position: relative;
             }
+
             .timeline-item:nth-child(odd) {
                 margin-right: auto;
                 padding-right: 30px;
                 border-right: none;
             }
+
             .timeline-item:nth-child(even) {
                 margin-left: auto;
                 padding-left: 30px;
                 border-left: none;
                 border-right: 4px solid var(--accent);
             }
+
             .timeline-item::before {
                 left: auto;
             }
+
             .timeline-item:nth-child(odd)::before {
                 right: -37px;
             }
+
             .timeline-item:nth-child(even)::before {
                 left: -37px;
                 right: auto;
             }
+
             /* Arrow connectors towards the center line */
             .timeline-item::after {
                 content: '';
                 position: absolute;
                 top: 26px;
-                width: 0; height: 0;
+                width: 0;
+                height: 0;
                 border: 8px solid transparent;
             }
+
             .timeline-item:nth-child(odd)::after {
                 right: -8px;
                 border-left-color: var(--surface-plain);
             }
+
             .timeline-item:nth-child(even)::after {
                 left: -8px;
                 border-right-color: var(--surface-plain);
@@ -408,8 +437,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .expand-all-btn {
@@ -488,12 +524,11 @@
             height: 8px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary), var(--primary-2));
-            box-shadow: 0 0 0 3px rgba(102,126,234,0.15);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
         }
-
-        
     </style>
 </head>
+
 <body>
     <div class="progress-bar"></div>
     <div class="topbar">
@@ -512,7 +547,7 @@
     </div>
     <button class="expand-all-btn" onclick="toggleAllSections()">展开全部</button>
     <button class="theme-toggle" aria-label="切换主题" title="切换主题" onclick="toggleTheme()">🌞 亮色</button>
-    
+
     <div class="container fade-in">
         <header>
             <h1>SN - 修身、齐家</h1>
@@ -701,6 +736,7 @@
                                 <p>开始众包之旅</p>
                             </div>
                         </div>
+                    </div>
                 </div>
             </section>
 
@@ -808,163 +844,204 @@
                             <div class="timeline-content">
                                 <h3>创建证券账号</h3>
                             </div>
+                        </div>
                     </div>
-                </div>
             </section>
         </main>
         <footer class="footer" id="contact">
             <p>© SN 修身、齐家 · 以行动记录成长</p>
         </footer>
-  
-    <script>
-        // 主题切换与持久化
-        function setTheme(theme) {
-            document.body.classList.remove('light', 'dark', 'morandi');
-            if (theme === 'dark') document.body.classList.add('dark');
-            if (theme === 'morandi') document.body.classList.add('morandi');
-            if (theme === 'light') document.body.classList.add('light');
-            try { localStorage.setItem('sn-theme', theme); } catch (e) {}
-            updateThemeToggleLabel();
-        }
 
-        function getCurrentTheme() {
-            if (document.body.classList.contains('dark')) return 'dark';
-            if (document.body.classList.contains('morandi')) return 'morandi';
-            if (document.body.classList.contains('light')) return 'light';
-            return null;
-        }
-
-        function applyStoredTheme() {
-            let theme = null;
-            try { theme = localStorage.getItem('sn-theme'); } catch (e) {}
-            if (!theme) {
-                // default follow system
-                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    theme = 'dark';
-                } else {
-                    theme = 'light';
-                }
+        <script>
+            // 主题切换与持久化
+            function setTheme(theme) {
+                document.body.classList.remove('light', 'dark', 'morandi');
+                if (theme === 'dark') document.body.classList.add('dark');
+                if (theme === 'morandi') document.body.classList.add('morandi');
+                if (theme === 'light') document.body.classList.add('light');
+                try { localStorage.setItem('sn-theme', theme); } catch (e) { }
+                updateThemeToggleLabel();
             }
-            setTheme(theme);
-        }
 
-        function toggleTheme() {
-            const order = ['light', 'dark', 'morandi'];
-            const current = getCurrentTheme() || 'light';
-            const next = order[(order.indexOf(current) + 1) % order.length];
-            setTheme(next);
-        }
-
-        function updateThemeToggleLabel() {
-            const btn = document.querySelector('.theme-toggle');
-            if (!btn) return;
-            const theme = getCurrentTheme() || 'light';
-            btn.textContent = theme === 'dark' ? '🌙 暗色' : (theme === 'morandi' ? '🎨 莫兰迪' : '🌞 亮色');
-        }
-
-        // 展开/折叠section功能
-        function toggleSection(sectionId) {
-            const section = document.querySelector(`[data-section="${sectionId}"]`);
-            const isExpanded = section.classList.contains('expanded');
-            
-            if (isExpanded) {
-                section.classList.remove('expanded');
-            } else {
-                section.classList.add('expanded');
+            function getCurrentTheme() {
+                if (document.body.classList.contains('dark')) return 'dark';
+                if (document.body.classList.contains('morandi')) return 'morandi';
+                if (document.body.classList.contains('light')) return 'light';
+                return null;
             }
-            
-            updateProgressBar();
-        }
-        
-        
-        // 展开/折叠所有section
-        function toggleAllSections() {
-            const sections = document.querySelectorAll('.section');
-            const button = document.querySelector('.expand-all-btn');
-            const allExpanded = Array.from(sections).every(section => section.classList.contains('expanded'));
-            
-            sections.forEach(section => {
-                if (allExpanded) {
-                    section.classList.remove('expanded');
-                } else {
-                    section.classList.add('expanded');
-                }
-            });
-            
-            button.textContent = allExpanded ? '展开全部' : '折叠全部';
-            updateProgressBar();
-        }
-        
-        // 更新进度条
-        function updateProgressBar() {
-            const sections = document.querySelectorAll('.section');
-            const expandedSections = document.querySelectorAll('.section.expanded');
-            const progress = (expandedSections.length / sections.length) * 100;
-            
-            document.querySelector('.progress-bar').style.width = progress + '%';
-        }
-        
-        // 滚动监听
-        function updateProgressOnScroll() {
-            const scrollTop = window.pageYOffset;
-            const docHeight = document.body.offsetHeight - window.innerHeight;
-            const scrollPercent = (scrollTop / docHeight) * 100;
-            
-            document.querySelector('.progress-bar').style.width = Math.max(scrollPercent, 0) + '%';
-        }
-        
-        // 页面加载完成后初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            applyStoredTheme();
-            // 默认展开第一个section
-            const firstSection = document.querySelector('.section');
-            if (firstSection) {
-                firstSection.classList.add('expanded');
-            }
-            
-            // 添加滚动监听
-            window.addEventListener('scroll', updateProgressOnScroll);
-            
-            // 初始化进度条
-            updateProgressBar();
-            
-            // 添加键盘快捷键支持
-            document.addEventListener('keydown', function(e) {
-                if (e.ctrlKey || e.metaKey) {
-                    switch(e.key) {
-                        case 'a':
-                            e.preventDefault();
-                            toggleAllSections();
-                            break;
-                        case '1':
-                            e.preventDefault();
-                            toggleSection('work');
-                            break;
-                        case '2':
-                            e.preventDefault();
-                            toggleSection('crowdsourcing');
-                            break;
-                        case '3':
-                            e.preventDefault();
-                            toggleSection('ecommerce');
-                            break;
+
+            function applyStoredTheme() {
+                let theme = null;
+                try { theme = localStorage.getItem('sn-theme'); } catch (e) { }
+                if (!theme) {
+                    // default follow system
+                    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        theme = 'dark';
+                    } else {
+                        theme = 'light';
                     }
                 }
+                setTheme(theme);
+            }
+
+            function toggleTheme() {
+                const order = ['light', 'dark', 'morandi'];
+                const current = getCurrentTheme() || 'light';
+                const next = order[(order.indexOf(current) + 1) % order.length];
+                setTheme(next);
+            }
+
+            function updateThemeToggleLabel() {
+                const btn = document.querySelector('.theme-toggle');
+                if (!btn) return;
+                const theme = getCurrentTheme() || 'light';
+                btn.textContent = theme === 'dark' ? '🌙 暗色' : (theme === 'morandi' ? '🎨 莫兰迪' : '🌞 亮色');
+            }
+
+            // 展开/折叠section功能
+            function expandSection(section) {
+                const content = section.querySelector('.section-content');
+                if (!content) return;
+
+                // Start from current computed height (0 when collapsed)
+                const target = content.scrollHeight;
+                content.style.maxHeight = target + 'px';
+
+                const onEnd = function (e) {
+                    if (e && e.target !== content) return;
+                    content.removeEventListener('transitionend', onEnd);
+                    // Clear inline style to allow natural growth; CSS provides max-height: none when expanded
+                    content.style.maxHeight = '';
+                };
+
+                content.addEventListener('transitionend', onEnd);
+                section.classList.add('expanded');
+            }
+
+            function collapseSection(section) {
+                const content = section.querySelector('.section-content');
+                if (!content) return;
+
+                // If currently unbounded (none), set to pixel height first to enable transition
+                const current = content.scrollHeight;
+                content.style.maxHeight = current + 'px';
+
+                // Force reflow to apply the current height before transitioning to 0
+                // eslint-disable-next-line no-unused-expressions
+                content.offsetHeight;
+
+                const onEnd = function (e) {
+                    if (e && e.target !== content) return;
+                    content.removeEventListener('transitionend', onEnd);
+                    section.classList.remove('expanded');
+                    content.style.maxHeight = '';
+                };
+
+                content.addEventListener('transitionend', onEnd);
+                content.style.maxHeight = '0px';
+            }
+
+            function toggleSection(sectionId) {
+                const section = document.querySelector(`[data-section="${sectionId}"]`);
+                if (!section) return;
+                const isExpanded = section.classList.contains('expanded');
+                if (isExpanded) {
+                    collapseSection(section);
+                } else {
+                    expandSection(section);
+                }
+                updateProgressBar();
+            }
+
+
+            // 展开/折叠所有section
+            function toggleAllSections() {
+                const sections = document.querySelectorAll('.section');
+                const button = document.querySelector('.expand-all-btn');
+                const allExpanded = Array.from(sections).every(section => section.classList.contains('expanded'));
+
+                sections.forEach(section => {
+                    if (allExpanded) {
+                        collapseSection(section);
+                    } else {
+                        expandSection(section);
+                    }
+                });
+
+                button.textContent = allExpanded ? '展开全部' : '折叠全部';
+                updateProgressBar();
+            }
+
+            // 更新进度条
+            function updateProgressBar() {
+                const sections = document.querySelectorAll('.section');
+                const expandedSections = document.querySelectorAll('.section.expanded');
+                const progress = (expandedSections.length / sections.length) * 100;
+
+                document.querySelector('.progress-bar').style.width = progress + '%';
+            }
+
+            // 滚动监听
+            function updateProgressOnScroll() {
+                const scrollTop = window.pageYOffset;
+                const docHeight = document.body.offsetHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+
+                document.querySelector('.progress-bar').style.width = Math.max(scrollPercent, 0) + '%';
+            }
+
+            // 页面加载完成后初始化
+            document.addEventListener('DOMContentLoaded', function () {
+                applyStoredTheme();
+                // 默认展开第一个section
+                const firstSection = document.querySelector('.section');
+                if (firstSection) {
+                    expandSection(firstSection);
+                }
+
+                // 添加滚动监听
+                window.addEventListener('scroll', updateProgressOnScroll);
+
+                // 初始化进度条
+                updateProgressBar();
+
+                // 添加键盘快捷键支持
+                document.addEventListener('keydown', function (e) {
+                    if (e.ctrlKey || e.metaKey) {
+                        switch (e.key) {
+                            case 'a':
+                                e.preventDefault();
+                                toggleAllSections();
+                                break;
+                            case '1':
+                                e.preventDefault();
+                                toggleSection('work');
+                                break;
+                            case '2':
+                                e.preventDefault();
+                                toggleSection('crowdsourcing');
+                                break;
+                            case '3':
+                                e.preventDefault();
+                                toggleSection('ecommerce');
+                                break;
+                        }
+                    }
+                });
             });
-        });
-        
-        // 添加平滑滚动到顶部功能
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-        
-        // 添加回到顶部按钮
-        const backToTopBtn = document.createElement('button');
-        backToTopBtn.innerHTML = '↑';
-        backToTopBtn.style.cssText = `
+
+            // 添加平滑滚动到顶部功能
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // 添加回到顶部按钮
+            const backToTopBtn = document.createElement('button');
+            backToTopBtn.innerHTML = '↑';
+            backToTopBtn.style.cssText = `
             position: fixed;
             bottom: 20px;
             right: 20px;
@@ -983,27 +1060,28 @@
             opacity: 0;
             transform: translateY(100px);
         `;
-        
-        backToTopBtn.addEventListener('click', scrollToTop);
-        backToTopBtn.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(0) scale(1.1)';
-        });
-        backToTopBtn.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-        
-        document.body.appendChild(backToTopBtn);
-        
-        // 显示/隐藏回到顶部按钮
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                backToTopBtn.style.opacity = '1';
-                backToTopBtn.style.transform = 'translateY(0)';
-            } else {
-                backToTopBtn.style.opacity = '0';
-                backToTopBtn.style.transform = 'translateY(100px)';
-            }
-        });
-    </script>
+
+            backToTopBtn.addEventListener('click', scrollToTop);
+            backToTopBtn.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(0) scale(1.1)';
+            });
+            backToTopBtn.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+
+            document.body.appendChild(backToTopBtn);
+
+            // 显示/隐藏回到顶部按钮
+            window.addEventListener('scroll', function () {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.style.opacity = '1';
+                    backToTopBtn.style.transform = 'translateY(0)';
+                } else {
+                    backToTopBtn.style.opacity = '0';
+                    backToTopBtn.style.transform = 'translateY(100px)';
+                }
+            });
+        </script>
 </body>
+
 </html>
