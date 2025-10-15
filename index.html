@@ -4,50 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SN - 修身、齐家</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: linear-gradient(135deg, #f5f7ff 0%, #eef1ff 100%);
+            --text: #2b2f36;
+            --muted-text: #6c757d;
+            --surface: rgba(255, 255, 255, 0.95);
+            --surface-plain: #ffffff;
+            --primary: #667eea;
+            --primary-2: #764ba2;
+            --accent: #3498db;
+            --accent-2: #e74c3c;
+            --border: #e6e8ef;
+            --shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            --radius-lg: 20px;
+            --radius-md: 15px;
+            --radius-sm: 10px;
+            --spacing: 20px;
+        }
+
+        body.dark {
+            --bg: linear-gradient(135deg, #0f172a 0%, #111827 100%);
+            --text: #e5e7eb;
+            --muted-text: #9ca3af;
+            --surface: rgba(15, 23, 42, 0.65);
+            --surface-plain: #0b1220;
+            --primary: #8b9df2;
+            --primary-2: #9b7cc8;
+            --accent: #4ea8de;
+            --accent-2: #f87171;
+            --border: #1f2937;
+            --shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+        }
+        
+        body.morandi {
+            /* Morandi muted palette */
+            --bg: linear-gradient(135deg, #efefee 0%, #e7e3de 100%);
+            --text: #3e3a39;
+            --muted-text: #7a726d;
+            --surface: rgba(255, 255, 255, 0.92);
+            --surface-plain: #fbfaf8;
+            --primary: #b1b7c4; /* ash blue */
+            --primary-2: #c9b2a6; /* warm taupe */
+            --accent: #a8b8a2; /* sage */
+            --accent-2: #c89f9c; /* dusty rose */
+            --border: #e3ddd6;
+            --shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+        }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--surface);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
             margin-top: 20px;
             margin-bottom: 20px;
+            border: 1px solid var(--border);
         }
+
+        /* Sticky top header */
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 1100;
+            backdrop-filter: saturate(180%) blur(10px);
+            background: linear-gradient(135deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.55) 100%);
+            border-bottom: 1px solid var(--border);
+        }
+        body.dark .topbar, body.morandi .topbar {
+            background: linear-gradient(135deg, rgba(20,25,35,0.75) 0%, rgba(20,25,35,0.55) 100%);
+        }
+        .topbar-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+        .brand {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .nav {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .nav a:hover {
+            background: rgba(0,0,0,0.06);
+        }
+        body.dark .nav a:hover { background: rgba(255,255,255,0.08); }
 
         h1 {
             text-align: center;
-            color: #2c3e50;
+            color: var(--text);
             margin-bottom: 30px;
-            font-size: 2.5em;
-            font-weight: 300;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 2.4em;
+            font-weight: 700;
+            letter-spacing: -0.02em;
         }
 
         .section {
             margin-bottom: 30px;
-            background: #fff;
-            border-radius: 15px;
+            background: var(--surface-plain);
+            border-radius: var(--radius-md);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            border-left: 5px solid #3498db;
+            border-left: 5px solid var(--accent);
             overflow: hidden;
             transition: all 0.3s ease;
+            border: 1px solid var(--border);
         }
 
         .section:hover {
@@ -61,28 +159,30 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: linear-gradient(135deg, rgba(248,249,250,0.8) 0%, rgba(233,236,239,0.8) 100%);
             transition: all 0.3s ease;
+            backdrop-filter: blur(6px);
         }
 
         .section-header:hover {
-            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+            background: linear-gradient(135deg, rgba(233,236,239,0.9) 0%, rgba(222,226,230,0.9) 100%);
         }
 
         .section h2 {
-            color: #2c3e50;
+            color: var(--text);
             font-size: 1.5em;
-            font-weight: 600;
+            font-weight: 700;
             margin: 0;
             display: flex;
             align-items: center;
             gap: 10px;
+            letter-spacing: -0.01em;
         }
 
         .toggle-icon {
-            font-size: 1.2em;
-            color: #6c757d;
-            transition: transform 0.3s ease;
+            font-size: 1.1em;
+            color: var(--muted-text);
+            transition: transform 0.3s ease, color 0.3s ease;
         }
 
         .section.expanded .toggle-icon {
@@ -113,23 +213,23 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: linear-gradient(to bottom, #3498db, #e74c3c);
+            background: linear-gradient(to bottom, var(--accent), var(--accent-2));
         }
 
         .timeline-item {
             position: relative;
             margin-bottom: 25px;
-            background: #f8f9fa;
+            background: rgba(248,249,250,0.75);
             padding: 20px;
             border-radius: 12px;
-            border-left: 4px solid #3498db;
+            border-left: 4px solid var(--accent);
             transition: all 0.3s ease;
         }
 
         .timeline-item:hover {
             transform: translateX(8px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            background: #fff;
+            background: var(--surface-plain);
         }
 
         .timeline-item::before {
@@ -139,16 +239,16 @@
             top: 20px;
             width: 12px;
             height: 12px;
-            background: #3498db;
+            background: var(--accent);
             border-radius: 50%;
             border: 3px solid #fff;
-            box-shadow: 0 0 0 3px #3498db;
+            box-shadow: 0 0 0 3px var(--accent);
         }
 
         .timeline-date {
-            font-weight: bold;
-            color: #e74c3c;
-            font-size: 1.1em;
+            font-weight: 700;
+            color: var(--accent-2);
+            font-size: 1.05em;
             margin-bottom: 10px;
         }
 
@@ -158,9 +258,10 @@
         }
 
         .timeline-content h3 {
-            color: #2c3e50;
+            color: var(--text);
             margin-bottom: 10px;
-            font-size: 1.2em;
+            font-size: 1.15em;
+            font-weight: 600;
         }
 
         .stats-grid {
@@ -171,7 +272,7 @@
         }
 
         .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
             color: white;
             padding: 15px;
             border-radius: 10px;
@@ -197,7 +298,7 @@
         }
 
         .note {
-            background: #fff3cd;
+            background: rgba(255, 243, 205, 0.9);
             border: 1px solid #ffeaa7;
             border-radius: 8px;
             padding: 15px;
@@ -249,6 +350,59 @@
             }
         }
 
+        /* Desktop alternating timeline layout */
+        @media (min-width: 900px) {
+            .timeline {
+                padding-left: 0;
+                padding-right: 0;
+            }
+            .timeline::before {
+                left: 50%;
+                transform: translateX(-1px);
+            }
+            .timeline-item {
+                width: calc(50% - 40px);
+                position: relative;
+            }
+            .timeline-item:nth-child(odd) {
+                margin-right: auto;
+                padding-right: 30px;
+                border-right: none;
+            }
+            .timeline-item:nth-child(even) {
+                margin-left: auto;
+                padding-left: 30px;
+                border-left: none;
+                border-right: 4px solid var(--accent);
+            }
+            .timeline-item::before {
+                left: auto;
+            }
+            .timeline-item:nth-child(odd)::before {
+                right: -37px;
+            }
+            .timeline-item:nth-child(even)::before {
+                left: -37px;
+                right: auto;
+            }
+            /* Arrow connectors towards the center line */
+            .timeline-item::after {
+                content: '';
+                position: absolute;
+                top: 26px;
+                width: 0; height: 0;
+                border: 8px solid transparent;
+            }
+            .timeline-item:nth-child(odd)::after {
+                right: -8px;
+                border-left-color: var(--surface-plain);
+            }
+            .timeline-item:nth-child(even)::after {
+                left: -8px;
+                border-right-color: var(--surface-plain);
+            }
+        }
+
         .fade-in {
             animation: fadeIn 0.8s ease-in;
         }
@@ -262,7 +416,7 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
             color: white;
             border: none;
             padding: 12px 20px;
@@ -272,12 +426,34 @@
             font-weight: 600;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
-            z-index: 1000;
+            z-index: 1201;
         }
 
         .expand-all-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 140px;
+            background: rgba(255, 255, 255, 0.6);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 10px 14px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transition: all 0.3s ease;
+            z-index: 1201;
+            backdrop-filter: blur(6px);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
         }
 
         .progress-bar {
@@ -286,15 +462,56 @@
             left: 0;
             width: 0%;
             height: 3px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-2) 100%);
             transition: width 0.3s ease;
             z-index: 1001;
         }
+
+        /* Lists */
+        .section-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .section-content li {
+            position: relative;
+            padding-left: 22px;
+            margin: 8px 0;
+        }
+
+        .section-content li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-2));
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.15);
+        }
+
+        
     </style>
 </head>
 <body>
     <div class="progress-bar"></div>
+    <div class="topbar">
+        <div class="topbar-inner">
+            <div class="brand">SN</div>
+            <nav class="nav">
+                <a href="#work">打工</a>
+                <a href="#crowdsourcing">众包</a>
+                <a href="#ecommerce">电商</a>
+                <a href="#content">内容</a>
+                <a href="#consulting">咨询</a>
+                <a href="#product">产品</a>
+                <a href="#investment">投资</a>
+            </nav>
+        </div>
+    </div>
     <button class="expand-all-btn" onclick="toggleAllSections()">展开全部</button>
+    <button class="theme-toggle" aria-label="切换主题" title="切换主题" onclick="toggleTheme()">🌞 亮色</button>
     
     <div class="container fade-in">
         <header>
@@ -303,20 +520,21 @@
 
         <main>
             <!-- 打工之路 -->
-            <section class="section" data-section="work">
+            <section class="section" id="work" data-section="work">
                 <div class="section-header" onclick="toggleSection('work')">
                     <h2>💼 打工之路</h2>
                     <span class="toggle-icon">▼</span>
                 </div>
                 <div class="section-content">
                     <ul>
-                        <li>产品经理</li>
+                        <li>2012年5月 成为产品经理</li>
+                        <li>2008年4月 开始正式工作</li>
                     </ul>
                 </div>
             </section>
 
             <!-- 众包之路 -->
-            <section class="section" data-section="crowdsourcing">
+            <section class="section" id="crowdsourcing" data-section="crowdsourcing">
                 <div class="section-header" onclick="toggleSection('crowdsourcing')">
                     <h2>🚚 众包之路</h2>
                     <span class="toggle-icon">▼</span>
@@ -487,7 +705,7 @@
             </section>
 
             <!-- 电商之路 -->
-            <section class="section" data-section="ecommerce">
+            <section class="section" id="ecommerce" data-section="ecommerce">
                 <div class="section-header" onclick="toggleSection('ecommerce')">
                     <h2>🛒 电商之路</h2>
                     <span class="toggle-icon">▼</span>
@@ -515,20 +733,27 @@
             </section>
 
             <!-- 内容广告之路 -->
-            <section class="section" data-section="content">
+            <section class="section" id="content" data-section="content">
                 <div class="section-header" onclick="toggleSection('content')">
                     <h2>📱 内容广告之路</h2>
                     <span class="toggle-icon">▼</span>
                 </div>
                 <div class="section-content">
-                    <ul>
-                        <li>公众号</li>
-                    </ul>
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-date">
+            2012年9月
+        </div>
+        <div class="timeline-content">
+            <h3>创建公众号</h3>
+        </div>
+    </div>
+</div>
                 </div>
             </section>
 
             <!-- 服务咨询之路 -->
-            <section class="section" data-section="consulting">
+            <section class="section" id="consulting" data-section="consulting">
                 <div class="section-header" onclick="toggleSection('consulting')">
                     <h2>💼 服务咨询之路</h2>
                     <span class="toggle-icon">▼</span>
@@ -541,33 +766,102 @@
             </section>
 
             <!-- 产品应用之路 -->
-            <section class="section" data-section="product">
+            <section class="section" id="product" data-section="product">
                 <div class="section-header" onclick="toggleSection('product')">
                     <h2>🚀 产品应用之路</h2>
                     <span class="toggle-icon">▼</span>
                 </div>
                 <div class="section-content">
-                    <ul>
-                        <li>G</li>
-                    </ul>
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-date">
+            2014年10月
+        </div>
+        <div class="timeline-content">
+            <h3>发布第一个chrome应用</h3>
+        </div>
+    </div>
+</div>
                 </div>
             </section>
 
             <!-- 投资之路 -->
-            <section class="section" data-section="investment">
+            <section class="section" id="investment" data-section="investment">
                 <div class="section-header" onclick="toggleSection('investment')">
                     <h2>💰 投资之路</h2>
                     <span class="toggle-icon">▼</span>
                 </div>
                 <div class="section-content">
-                    <ul>
-                        <li>G</li>
-                    </ul>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">
+                                2014年2月
+                            </div>
+                            <div class="timeline-content">
+                                <h3>创建Securities账号</h3>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">
+                                2010年2月
+                            </div>
+                            <div class="timeline-content">
+                                <h3>创建证券账号</h3>
+                            </div>
+                    </div>
                 </div>
             </section>
         </main>
+        <footer class="footer" id="contact">
+            <p>© SN 修身、齐家 · 以行动记录成长</p>
+        </footer>
   
     <script>
+        // 主题切换与持久化
+        function setTheme(theme) {
+            document.body.classList.remove('light', 'dark', 'morandi');
+            if (theme === 'dark') document.body.classList.add('dark');
+            if (theme === 'morandi') document.body.classList.add('morandi');
+            if (theme === 'light') document.body.classList.add('light');
+            try { localStorage.setItem('sn-theme', theme); } catch (e) {}
+            updateThemeToggleLabel();
+        }
+
+        function getCurrentTheme() {
+            if (document.body.classList.contains('dark')) return 'dark';
+            if (document.body.classList.contains('morandi')) return 'morandi';
+            if (document.body.classList.contains('light')) return 'light';
+            return null;
+        }
+
+        function applyStoredTheme() {
+            let theme = null;
+            try { theme = localStorage.getItem('sn-theme'); } catch (e) {}
+            if (!theme) {
+                // default follow system
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    theme = 'dark';
+                } else {
+                    theme = 'light';
+                }
+            }
+            setTheme(theme);
+        }
+
+        function toggleTheme() {
+            const order = ['light', 'dark', 'morandi'];
+            const current = getCurrentTheme() || 'light';
+            const next = order[(order.indexOf(current) + 1) % order.length];
+            setTheme(next);
+        }
+
+        function updateThemeToggleLabel() {
+            const btn = document.querySelector('.theme-toggle');
+            if (!btn) return;
+            const theme = getCurrentTheme() || 'light';
+            btn.textContent = theme === 'dark' ? '🌙 暗色' : (theme === 'morandi' ? '🎨 莫兰迪' : '🌞 亮色');
+        }
+
         // 展开/折叠section功能
         function toggleSection(sectionId) {
             const section = document.querySelector(`[data-section="${sectionId}"]`);
@@ -621,6 +915,7 @@
         
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', function() {
+            applyStoredTheme();
             // 默认展开第一个section
             const firstSection = document.querySelector('.section');
             if (firstSection) {
@@ -676,7 +971,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
             color: white;
             border: none;
             cursor: pointer;
